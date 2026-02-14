@@ -22,11 +22,11 @@ The project is currently in early development, which means there are no source f
 
 ## 📅 Roadmap
 
-- [ ] Project initialization  
-- [ ] Core rendering structure  
-- [ ] UI prototype  
+- [x] Project initialization  
+- [x] Core rendering structure  
+- [x] UI prototype  
+- [x] Settings & extensibility  
 - [ ] Tab system  
-- [ ] Settings & extensibility  
 
 ## 🤝 Contributing
 
