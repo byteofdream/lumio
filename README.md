@@ -1,6 +1,6 @@
 # Lumio Browser
 
-Lumio is an experimental web browser built with **Rust** and the **Dioxus** framework.  
+Lumio is an experimental web browser built with **Electron** and **JavaScript**.  
 The project is currently in early development, which means there are no source files or project structure in the repository yet.
 
 ## 🚧 Project Status
@@ -11,14 +11,15 @@ The project is currently in early development, which means there are no source f
 
 ## 🛠 Technologies
 
-- **Rust** — a modern, fast, and safe systems programming language  
-- **Dioxus** — a declarative UI framework for building cross-platform interfaces
+- **Electron** — cross-platform framework for building desktop apps using web technologies  
+- **JavaScript** — main language for app logic and UI  
+- *(More technologies will be added as the project grows)*
 
 ## 📌 Project Goals
 
-- Build a lightweight, fast, and secure web browser  
-- Explore Rust + Dioxus capabilities in browser-related development  
-- Create a customizable and modular UI
+- Build a lightweight, modern, customizable web browser  
+- Explore the capabilities of Electron for browser-like applications  
+- Create a modular and flexible UI
 
 ## 📅 Roadmap
 
@@ -27,6 +28,12 @@ The project is currently in early development, which means there are no source f
 - [x] UI prototype  
 - [x] Settings & extensibility  
 - [ ] Tab system  
+
+## 🖼 Screenshot (early concept)
+
+![Lumio Screenshot](preview/screenshot.png)
+
+*(Replace `screenshot.png` with your actual file once added to the repository)*
 
 ## 🤝 Contributing
 
