@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumio</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-bg"></div>
+    <main class="shell">
+      <header id="toolbar" class="toolbar">
+        <div class="tabs-row">
+          <div id="tabsList" class="tabs-list"></div>
+          <button id="newTabBtn" class="btn tab-add-btn" title="New tab">+</button>
+        </div>
+        <div class="nav-row">
+          <button id="backBtn" class="btn" aria-label="Back">&larr;</button>
+          <button id="forwardBtn" class="btn" aria-label="Forward">&rarr;</button>
+          <button id="reloadBtn" class="btn">Reload</button>
+          <button id="homeBtn" class="btn">Home</button>
+          <input id="addressInput" class="address" placeholder="Type URL or search..." />
+          <div id="clock" class="clock">--:--</div>
+          <button id="settingsBtn" class="btn btn-primary">Settings</button>
+        </div>
+      </header>
+
+      <section class="content">
+        <div id="webviewsContainer" class="webviews-container"></div>
+      </section>
+    </main>
+
+    <script type="module" src="./renderer.js"></script>
+  </body>
+</html>
