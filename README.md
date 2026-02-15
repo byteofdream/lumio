@@ -33,8 +33,6 @@ The project is currently in early development, which means there are no source f
 
 ![Lumio Screenshot](preview/screenshot.png)
 
-*(Replace `screenshot.png` with your actual file once added to the repository)*
-
 ## 🤝 Contributing
 
 The project is currently in its preparation phase, but suggestions are welcome.  
