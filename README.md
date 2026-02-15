@@ -1,39 +1,86 @@
-# Lumio Browser
+# Lumio
 
-Lumio is an experimental web browser built with **Electron** and **JavaScript**.  
-The project is currently in early development, which means there are no source files or project structure in the repository yet.
+Lumio is a custom browser shell built with **Electron**.
+It includes a styled top toolbar, tabs, a custom search page, and a separate settings window.
 
-## 🚧 Project Status
+## Features
 
-- 🔧 **Active development**
-- 📂 **No source files yet**
-- 🧪 **Preparing architecture and development environment**
+- Multi-tab browsing
+- Navigation controls: Back / Forward / Reload / Home
+- Address bar with URL + search input
+- Custom search start page (`lumio://search`)
+- Search commands on the start page (`!g`, `!yt`, `!gh`, `!w`)
+- Search theme switching (`Morph Glass`, `Neon Grid`)
+- Separate Settings window (not embedded in the main UI)
+- Clock in toolbar (toggleable)
+- Compact toolbar mode
+- Native Electron app menu removed (`File / Edit / ...`)
 
-## 🛠 Technologies
+## Tech Stack
 
-- **Electron** — cross-platform framework for building desktop apps using web technologies  
-- **JavaScript** — main language for app logic and UI  
-- *(More technologies will be added as the project grows)*
+- Electron
+- Vanilla HTML/CSS/JS
+- `<webview>`-based tab rendering
+- JSON settings storage in Electron `userData`
 
-## 📌 Project Goals
+## Project Structure
 
-- Build a lightweight, modern, customizable web browser  
-- Explore the capabilities of Electron for browser-like applications  
-- Create a modular and flexible UI
+```text
+.
+├─ main.js               # Electron main process (windows + IPC)
+├─ preload.js            # Secure bridge API exposed to renderer
+├─ settings-store.js     # Settings persistence (read/write/update)
+├─ package.json
+└─ src
+   ├─ index.html         # Main browser window UI
+   ├─ renderer.js        # Tabs + navigation logic
+   ├─ styles.css         # Main window styling
+   ├─ search.html        # Custom search page
+   ├─ search-morph.css   # Morph Glass theme
+   ├─ search-neon.css    # Neon Grid theme
+   ├─ settings.html      # Separate settings window
+   ├─ settings.css       # Settings window styling
+   └─ settings-page.js   # Settings page logic
+```
 
-## 📅 Roadmap
+## Requirements
 
-- [x] Project initialization  
-- [x] Core rendering structure  
-- [x] UI prototype  
-- [x] Settings & extensibility  
-- [ ] Tab system  
+- Node.js 18+ (LTS recommended)
+- npm
 
-## 🖼 Screenshot (early concept)
+## Run Locally
 
-![Lumio Screenshot](preview/screenshot.png)
+```bash
+npm install
+npm run dev
+```
 
-## 🤝 Contributing
+## Settings
 
-The project is currently in its preparation phase, but suggestions are welcome.  
-Feel free to open an issue or start a discussion!
+Click **Settings** in the top-right corner of the toolbar.
+This opens a separate settings window where you can update:
+
+- Home page
+- Search template (`{query}` placeholder required)
+- Search page theme
+- Show clock
+- Compact toolbar
+
+Settings are saved to:
+
+- `userData/settings.json` (managed by Electron)
+
+## Notes
+
+- The start page alias `lumio://search` is internally resolved to `src/search.html`.
+- Search theme is passed to the search page through a query parameter.
+- Tabs are implemented as independent `<webview>` elements, with one active at a time.
+
+## Roadmap Ideas
+
+- Drag-and-drop tab reordering
+- Pinned tabs
+- Session restore
+- Download manager
+- Per-tab mute / permissions UI
+
