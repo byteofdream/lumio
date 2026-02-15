@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumio Search</title>
+    <link id="themeStylesheet" rel="stylesheet" href="./search-morph.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="card">
+        <div class="brand-row">
+          <h1>Lumio Search</h1>
+          <span class="badge">Custom</span>
+        </div>
+        <p>Fast launcher with command prefixes and smart redirect.</p>
+
+        <form id="searchForm">
+          <input id="queryInput" placeholder="Search... try: !yt lo-fi, !gh electron" autocomplete="off" />
+          <button type="submit">Search</button>
+        </form>
+
+        <div class="chips">
+          <button class="chip" data-query="!g electron webview">Google</button>
+          <button class="chip" data-query="!yt synthwave">YouTube</button>
+          <button class="chip" data-query="!gh electron/electron">GitHub</button>
+          <button class="chip" data-query="!w browser">Wikipedia</button>
+        </div>
+
+        <section>
+          <h3>Recent</h3>
+          <div id="history" class="history"></div>
+        </section>
+
+        <div class="hint">Commands: <code>!g</code> Google, <code>!yt</code> YouTube, <code>!gh</code> GitHub, <code>!w</code> Wikipedia</div>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById("searchForm");
+      const queryInput = document.getElementById("queryInput");
+      const historyWrap = document.getElementById("history");
+      const chips = document.querySelectorAll(".chip");
+      const themeStylesheet = document.getElementById("themeStylesheet");
+      const HISTORY_KEY = "lumio_search_history_v1";
+
+      const params = new URLSearchParams(window.location.search);
+      const theme = params.get("theme") || "morph-glass";
+      themeStylesheet.href = theme === "neon-grid" ? "./search-neon.css" : "./search-morph.css";
+
+      function loadHistory() {
+        try {
+          const raw = localStorage.getItem(HISTORY_KEY);
+          const list = raw ? JSON.parse(raw) : [];
+          return Array.isArray(list) ? list.slice(0, 8) : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveHistory(query) {
+        const clean = (query || "").trim();
+        if (!clean) return;
+        const list = loadHistory().filter((q) => q !== clean);
+        list.unshift(clean);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(0, 8)));
+      }
+
+      function renderHistory() {
+        const list = loadHistory();
+        if (!list.length) {
+          historyWrap.innerHTML = '<div class="history-empty">No searches yet</div>';
+          return;
+        }
+        historyWrap.innerHTML = list
+          .map((q) => `<button class="history-item" data-q="${q.replace(/"/g, '&quot;')}">${q}</button>`)
+          .join("");
+
+        historyWrap.querySelectorAll(".history-item").forEach((el) => {
+          el.addEventListener("click", () => {
+            queryInput.value = el.dataset.q || "";
+            runSearch(queryInput.value);
+          });
+        });
+      }
+
+      function targetUrl(query) {
+        const q = (query || "").trim();
+        if (!q) return "";
+
+        const pairs = [
+          ["!g", "https://www.google.com/search?q="],
+          ["!yt", "https://www.youtube.com/results?search_query="],
+          ["!gh", "https://github.com/search?q="],
+          ["!w", "https://en.wikipedia.org/wiki/Special:Search?search="]
+        ];
+
+        for (const [prefix, base] of pairs) {
+          if (q.toLowerCase().startsWith(prefix + " ")) {
+            return base + encodeURIComponent(q.slice(prefix.length + 1).trim());
+          }
+        }
+
+        return "https://www.google.com/search?q=" + encodeURIComponent(q);
+      }
+
+      function runSearch(query) {
+        const url = targetUrl(query);
+        if (!url) return;
+        saveHistory(query);
+        window.location.href = url;
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        runSearch(queryInput.value);
+      });
+
+      chips.forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const q = chip.dataset.query || "";
+          queryInput.value = q;
+          runSearch(q);
+        });
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "/") {
+          e.preventDefault();
+          queryInput.focus();
+          queryInput.select();
+        }
+      });
+
+      renderHistory();
+      setTimeout(() => queryInput.focus(), 80);
+    </script>
+  </body>
+</html>

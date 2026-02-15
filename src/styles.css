@@ -1,0 +1,226 @@
+:root {
+  --bg-1: #08101b;
+  --bg-2: #0a1423;
+  --panel: rgba(8, 20, 34, 0.9);
+  --line: rgba(143, 185, 229, 0.25);
+  --text: #eaf3ff;
+  --muted: #b2c7df;
+  --accent-1: #34c6ff;
+  --accent-2: #68f3ce;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--text);
+  font-family: Segoe UI, system-ui, sans-serif;
+  background: var(--bg-1);
+}
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(900px 380px at 5% -10%, rgba(52, 198, 255, 0.2), transparent 60%),
+    radial-gradient(900px 440px at 95% -5%, rgba(104, 243, 206, 0.16), transparent 62%),
+    linear-gradient(180deg, var(--bg-2), var(--bg-1));
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 10px;
+  gap: 10px;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+}
+
+.toolbar.compact {
+  padding: 7px;
+  gap: 6px;
+}
+
+.tabs-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.tabs-list {
+  min-width: 0;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.tab {
+  max-width: 220px;
+  min-width: 120px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.tab.active {
+  border-color: var(--accent-1);
+  color: var(--text);
+  background: rgba(52, 198, 255, 0.14);
+}
+
+.tab-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.tab-close {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 0 2px;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.tab-add-btn {
+  width: 34px;
+  padding: 7px 0;
+}
+
+.nav-row {
+  display: grid;
+  grid-template-columns: auto auto auto auto 1fr auto auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn, .address {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  font: inherit;
+}
+
+.btn {
+  padding: 8px 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn:hover:not(:disabled) { border-color: var(--accent-1); }
+
+.btn-primary {
+  color: #08101b;
+  border: none;
+  background: linear-gradient(120deg, var(--accent-1), var(--accent-2));
+}
+
+.address {
+  width: 100%;
+  padding: 9px 11px;
+  outline: none;
+}
+.address:focus { border-color: var(--accent-1); }
+
+.clock {
+  min-width: 72px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  background: rgba(255,255,255,0.04);
+}
+
+.content {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.webviews-container {
+  width: 100%;
+  height: 100%;
+}
+
+.webview {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.webview.active {
+  display: inline-flex;
+}
+
+.settings {
+  position: fixed;
+  right: 16px;
+  top: 76px;
+  width: 320px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(9, 22, 37, 0.96);
+  display: grid;
+  gap: 10px;
+  z-index: 20;
+}
+.settings.hidden { display: none; }
+.settings h3 { margin: 0 0 4px; }
+.settings label { display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+.settings input[type="text"], .settings input:not([type]) {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  padding: 8px 10px;
+}
+.settings select {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  padding: 8px 10px;
+}
+.check-row {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
+}
+.settings-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}

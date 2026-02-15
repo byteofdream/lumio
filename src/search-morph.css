@@ -1,0 +1,472 @@
+:root {
+  /* Твои базовые цвета */
+  --bg-1: #07101b;
+  --bg-2: #0b1a2d;
+  --text: #e9f3ff;
+  --muted: #afc6df;
+  --accent-1: #34c6ff;
+  --accent-2: #68f3ce;
+
+  /* Специфические переменные для Liquid Glass */
+  --glass-bg: rgba(255, 255, 255, 0.03); /* Очень легкая основа */
+  --glass-border: rgba(255, 255, 255, 0.08); /* Светлая грань */
+  --glass-blur: 12px; /* Сила размытия */
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  /* Эффект жидкости (живой свет) */
+  --liquid-gradient: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.1), 
+    rgba(255, 255, 255, 0.05)
+  );
+}
+
+* { 
+  box-sizing: border-box; 
+  -webkit-font-smoothing: antialiased; /* Делаем шрифты мягче для эффекта */
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--text);
+  /* Твой градиент + небольшая глубина */
+  background:
+    radial-gradient(900px 400px at 5% -10%, rgba(52, 198, 255, 0.25), transparent 60%),
+    radial-gradient(900px 440px at 95% -5%, rgba(104, 243, 206, 0.2), transparent 62%),
+    linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  background-attachment: fixed; /* Важно, чтобы стекло "скользило" по фону */
+}
+
+/* Базовый класс для элементов, которые ты будешь кидать */
+.glass-element {
+  background: var(--glass-bg);
+  background-image: var(--liquid-gradient);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 16px; /* Мягкие углы обязательны для морфизма */
+}
+
+.page {
+  min-height: 100vh; /* Используем vh для корректного центрирования */
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background-attachment: fixed;
+}
+
+.card {
+  width: min(860px, 100%);
+  padding: 40px; /* Увеличил внутренние отступы для "воздушности" */
+  
+  /* Эффект Liquid Glass */
+  background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  
+  /* Размытие */
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  
+  /* Сложная граница: создаем эффект "алмазной грани" */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-right-color: rgba(255, 255, 255, 0.05);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+  
+  border-radius: 24px;
+  
+  /* Тройная тень: глубина + контур + мягкое свечение */
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.4),            /* Основная тень */
+    inset 0 1px 1px rgba(255, 255, 255, 0.1),  /* Верхний блик */
+    inset 0 -1px 20px rgba(0, 0, 0, 0.2);      /* Внутренняя глубина */
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Эффект "жидкого" отблеска сверху */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  pointer-events: none;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px; /* Чуть увеличил для "воздуха" */
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  /* Эффект градиентного текста (жидкий металл/стекло) */
+  background: linear-gradient(135deg, var(--text) 30%, var(--accent-1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Мягкое свечение букв */
+  filter: drop-shadow(0 2px 10px rgba(52, 198, 255, 0.3));
+}
+
+p {
+  margin: 8px 0 24px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.85; /* Легкая прозрачность для глубины */
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent-2);
+  
+  /* Эффект "вплавленного" стекла */
+  background: rgba(104, 243, 206, 0.05);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  
+  /* Цветная граница с градиентом */
+  border: 1px solid rgba(104, 243, 206, 0.2);
+  
+  /* Внутреннее свечение */
+  box-shadow: 
+    inset 0 0 8px rgba(104, 243, 206, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+    
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.badge:hover {
+  background: rgba(104, 243, 206, 0.1);
+  border-color: var(--accent-2);
+  transform: translateY(-1px);
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px; /* Немного увеличил зазор для чистоты */
+  margin-top: 16px;
+}
+
+input {
+  width: 100%;
+  border-radius: 14px; /* Чуть мягче углы */
+  
+  /* Эффект углубленного стекла */
+  background: rgba(0, 0, 0, 0.2); 
+  border: 1px solid var(--line);
+  
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  padding: 14px 18px;
+  outline: none;
+  
+  /* Плавность переходов для "жидкого" эффекта */
+  transition: 
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+    
+  /* Внутренняя тень создает ощущение полости */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input::placeholder {
+  color: var(--muted);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+/* Эффект при наведении — "подсветка изнутри" */
+input:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(143, 185, 229, 0.4);
+}
+
+/* Активное состояние — Morphling Focus */
+input:focus {
+  background: rgba(52, 198, 255, 0.03);
+  border-color: var(--accent-1);
+  
+  /* Свечение акцентным цветом */
+  box-shadow: 
+    0 0 0 4px rgba(52, 198, 255, 0.1), 
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input:focus::placeholder {
+  opacity: 0.3;
+}
+
+button {
+  border-radius: 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Обычная стеклянная кнопка (второстепенная) */
+button:not(form button) {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  padding: 10px 20px;
+}
+
+button:not(form button):hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Главная кнопка в форме (Liquid / Neon Style) */
+form button {
+  padding: 12px 24px;
+  font-weight: 700;
+  border: none;
+  color: #050b14; /* Глубокий темный для контраста с ярким фоном */
+  
+  /* "Жидкий" градиент */
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  
+  /* Сложное свечение: внешнее + внутреннее */
+  box-shadow: 
+    0 4px 15px rgba(52, 198, 255, 0.3),
+    0 8px 30px rgba(104, 243, 206, 0.2),
+    inset 0 1px 1px rgba(255, 255, 255, 0.4);
+    
+  text-shadow: 0 0.5px 1px rgba(255, 255, 255, 0.3);
+}
+
+/* Эффект глянцевого блика при наведении */
+form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+
+form button:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 6px 20px rgba(52, 198, 255, 0.4),
+    0 12px 40px rgba(104, 243, 206, 0.3);
+}
+
+form button:hover::before {
+  left: 100%;
+}
+
+form button:active {
+  transform: translateY(0) scale(0.98);
+  filter: brightness(0.9);
+}
+
+.chips {
+  margin-top: 20px; /* Чуть больше отступ от формы */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  
+  /* Эффект матовой капли */
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  
+  /* Тонкая грань */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  
+  /* Плавный переход */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Легкое внутреннее свечение */
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Эффект при наведении (жидкое подсвечивание) */
+.chip:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--accent-1);
+  color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 0 8px rgba(52, 198, 255, 0.2); /* Акцентный отсвет */
+}
+
+/* Если чипс выбран/активен */
+.chip.active {
+  background: rgba(52, 198, 255, 0.1);
+  border-color: var(--accent-1);
+  color: var(--accent-1);
+  box-shadow: inset 0 0 10px rgba(52, 198, 255, 0.1);
+}
+
+h3 { 
+  margin: 32px 0 12px; 
+  color: #d7eaff; 
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7; /* Делаем заголовок менее агрессивным */
+}
+
+.history {
+  display: grid;
+  gap: 10px; /* Увеличил зазор для разделения слоев */
+}
+
+.history-item {
+  text-align: left;
+  padding: 12px 16px;
+  border-radius: 14px;
+  
+  /* Эффект тонкого стекла */
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  
+  color: var(--muted);
+  font-size: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Эффект при наведении на элемент списка */
+.history-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  transform: translateX(4px); /* Легкий сдвиг вправо вместо всплытия */
+  
+  /* Мягкое свечение слева (эффект активного ребра) */
+  box-shadow: -2px 0 15px rgba(52, 198, 255, 0.1);
+}
+
+/* Декоративная "жидкая" точка перед текстом */
+.history-item::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 12px;
+  border-radius: 50%;
+  background: var(--accent-1);
+  box-shadow: 0 0 8px var(--accent-1);
+  opacity: 0.5;
+}
+
+.history-empty {
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+  padding: 20px;
+  text-align: center;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  opacity: 0.6;
+}
+
+.hint {
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+  /* Добавляем мягкое разделение сверху */
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Добавим иконку-инфо через псевдоэлемент, если нужно */
+.hint::before {
+  content: '✦'; /* Маленькая искра вместо скучной иконки */
+  color: var(--accent-1);
+  font-size: 10px;
+  filter: drop-shadow(0 0 5px var(--accent-1));
+}
+
+code {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.9em;
+  background: rgba(255, 255, 255, 0.05);
+  
+  /* Эффект "алмазной крошки" */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 2px 6px;
+  color: var(--accent-2); /* Делаем код акцентным */
+  
+  /* Внутренний блик */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Если код находится внутри ссылки или кнопки, сделаем его ярче */
+a code, button code {
+  background: rgba(104, 243, 206, 0.1);
+  border-color: rgba(104, 243, 206, 0.3);
+}

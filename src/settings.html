@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lumio Settings</title>
+    <link rel="stylesheet" href="./settings.css" />
+  </head>
+  <body>
+    <main class="panel">
+      <h1>Settings</h1>
+      <label>
+        Home page
+        <input id="homeInput" />
+      </label>
+      <label>
+        Search template (`{query}` placeholder)
+        <input id="searchInput" />
+      </label>
+      <label>
+        Search page theme
+        <select id="searchThemeInput">
+          <option value="morph-glass">Morph Glass</option>
+          <option value="neon-grid">Neon Grid</option>
+        </select>
+      </label>
+      <label class="check-row">
+        <input id="showClockInput" type="checkbox" />
+        <span>Show clock</span>
+      </label>
+      <label class="check-row">
+        <input id="compactInput" type="checkbox" />
+        <span>Compact toolbar</span>
+      </label>
+      <div class="actions">
+        <button id="cancelBtn" class="btn">Cancel</button>
+        <button id="saveBtn" class="btn btn-primary">Save</button>
+      </div>
+    </main>
+    <script src="./settings-page.js"></script>
+  </body>
+</html>
